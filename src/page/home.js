@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { ProductCard } from "../components/card";
 import { useTitle } from "../hooks/useTitle";
 
