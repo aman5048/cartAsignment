@@ -1,7 +1,7 @@
 export function ProductCard({ product }) {
   return (
     <>
-      <a className="block rounded-lg p-4 shadow-sm shadow-indigo-100">
+      <div className="block rounded-lg p-4 shadow-sm shadow-indigo-100">
         <img
           alt=""
           src={product.image}
@@ -29,7 +29,7 @@ export function ProductCard({ product }) {
             </div>
           </div>
         </div>
-      </a>
+      </div>
     </>
   );
 }
