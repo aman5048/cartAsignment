@@ -1,35 +1,36 @@
+import "./ProductCard.css";
+import { useState, useEffect } from "react";
+import { useCart } from "../context/CartContext";
+
 export function ProductCard({ product }) {
+  const { cartList, addToCart, removeFromCart } = useCart();
+  const [isInCart, setIsInCart] = useState(false);
+
+  const { id, name, price, image } = product;
+
+  useEffect(() => {
+    const productIsInCart = cartList.find((cartItem) => cartItem.id === id);
+
+    if (productIsInCart) {
+      setIsInCart(true);
+    } else {
+      setIsInCart(false);
+    }
+  }, [cartList, id]);
   return (
-    <>
-      <div className="block rounded-lg p-4 shadow-sm shadow-indigo-100">
-        <img
-          alt=""
-          src={product.image}
-          className="h-56 w-full rounded-md object-cover"
-        />
-
-        <div className="mt-2">
-          <dl>
-            <div>
-              <dd className="font-medium">{product.name}</dd>
-            </div>
-          </dl>
-
-          <div className="mt-6 grid grid-cols-2 text-xs">
-            <div className=" align-middle">
-              <p className="text-sm text-gray-900 font-medium">
-                ${product.price}
-              </p>
-            </div>
-
-            <div className=" align-middle justify-self-end items-align-end">
-              <button className="btn btn-primary h-8 w-content border-none rounded-md bg-blue-800 hover:bg-blue-600 p-2 text-white font-medium">
-                Add to Cart
-              </button>
-            </div>
-          </div>
-        </div>
+    <div className="productCard">
+      <img src={image} alt={name} />
+      <p className="name">{name}</p>
+      <div className="action">
+        <p>${price}</p>
+        {isInCart ? (
+          <button className="remove" onClick={() => removeFromCart(product)}>
+            Remove
+          </button>
+        ) : (
+          <button onClick={() => addToCart(product)}>Add To Cart</button>
+        )}
       </div>
-    </>
+    </div>
   );
 }
